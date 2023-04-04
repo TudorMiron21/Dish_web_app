@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+
+body{
+  background-color: #24252A;
+  color:#FD7F20;
+  font-family: 'Pacifico', cursive;
+}
+
+.navlink{
+  
+  font-weight: 500;
+  font-size: 20px;
+  color:#FD7F20;
+  text-decoration: none;
+  padding-right: 10%;
+
+  color: #0000;
+  background: 
+    linear-gradient(90deg,#FD7F20 50%,#000 0) 
+    var(--_p,100%)/200% no-repeat;
+  -webkit-background-clip: text;
+          background-clip: text;
+  transition: .4s;
+}
+
+.navlink:hover{
+  color:azure;
+
+  --_p: 0%;
+}
+
+.navbar{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color:#3B3B3B;
+  border-radius: 15px;
+}
+
+.logo{
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+.navbar Link.navlink{
+  transition:  all 0.3s ease 0s;
+}
+
+
+/* Register page */
+
+.auth-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.form-content{
+  padding: 15px;
+  margin: 10px;
+  background-color: #3B3B3B;
+}
+
