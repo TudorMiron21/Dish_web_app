@@ -1,66 +1,71 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 
-
 body{
-  background-color: #24252A;
-  color:#FD7F20;
-  font-family: 'Pacifico', cursive;
+  color: #fd7f20;
+  font-family: "Pacifico", cursive;
+  background-color: #24252a;
 }
 
-.navlink{
-  
+.navlink {
   font-weight: 500;
   font-size: 20px;
-  color:#FD7F20;
+  color: #fd7f20;
   text-decoration: none;
   padding-right: 10%;
 
   color: #0000;
-  background: 
-    linear-gradient(90deg,#FD7F20 50%,#000 0) 
-    var(--_p,100%)/200% no-repeat;
+  background: linear-gradient(90deg, #fd7f20 50%, #000 0) var(--_p, 100%) / 200%
+    no-repeat;
   -webkit-background-clip: text;
-          background-clip: text;
-  transition: .4s;
+  background-clip: text;
+  transition: 0.4s;
 }
 
-.navlink:hover{
-  color:azure;
+.navlink:hover {
+  color: #ffffff;
 
   --_p: 0%;
 }
 
-.navbar{
-  display:flex;
+.navbar {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color:#3B3B3B;
+  background-color: #3b3b3b;
   border-radius: 15px;
 }
 
-.logo{
+.logo {
   cursor: pointer;
   width: 50px;
   height: 50px;
 }
 
-.navbar Link.navlink{
-  transition:  all 0.3s ease 0s;
+.navbar Link.navlink {
+  transition: all 0.3s ease 0s;
 }
 
-
+.logout-button{
+  margin-right: 5%;
+}
 /* Register page */
 
-.auth-container{
+/* .auth-container {
+  border: 2px solid gray;
+  border-radius: 15px;
   display: flex;
-  align-items: center;
+  align-items: center;  
   justify-content: center;
-  height: 100vh;
+  height: 70vh;
+  width: 60vh;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15vh;
+  margin-bottom: auto;
 }
 
-.form-content{
+.form-content {
   padding: 15px;
   margin: 10px;
-  background-color: #3B3B3B;
-}
-
+  background-color: #3b3b3b;
+} */

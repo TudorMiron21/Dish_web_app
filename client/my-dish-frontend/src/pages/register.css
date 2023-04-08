@@ -1,0 +1,113 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap"); */
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Pacifico", cursive;
+}
+
+@font-face {
+  font-family: "Pacifico", cursive;
+  src: url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+}
+
+.page {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover {
+  background-color: rgb(140, 63, 8, 2);
+  width: 20em;
+  height: 35em;
+  position: relative;
+  border-radius: 1em;
+  box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.register-text {
+  margin-left: 33%;
+  margin-bottom: 10%;
+}
+
+.alt-login {
+  width: 80%;
+  height: 3em;
+  display: flex;
+  justify-content: space-around;
+}
+
+.alt-login div {
+  width: 40%;
+  height: 100%;
+  border-radius: 0.25em;
+  background-color: #fd7f20;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.google {
+  background-image: url("../images/google_good.png");
+}
+
+.facebook {
+  background-image: url("../images/facebook_good.png");
+}
+
+input {
+  border: none;
+  background-color: #3b3b3b;
+  height: 3em;
+  width: 100%;
+  border-radius: 0.25em;
+  margin: 5%;
+  text-align: center;
+  padding: 1em;
+}
+
+input:focus {
+  outline-color: aqua;
+}
+
+.reg-button {
+  width: 40%;
+  height: 3em;
+  margin-top: 10%;
+  margin-left: 35%;
+  background-color: lightslategrey;
+  border-radius: 1em;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+  cursor: pointer;
+}
+
+.logo-pic {
+  width: 80%;
+  height: 3em;
+  display: flex;
+  justify-content: space-around;
+}
+
+.logo-pic div {
+  width: 60%;
+  height: 300%;
+  border-radius: 10em;
+  background-color: rgb(253, 127, 32, 0.5);
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.picture {
+  background-image: url("../images/logo.png");
+  background-size: 90%;
+}
