@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios, { all } from "axios";
 import { useCookies } from "react-cookie";
 import {useNavigate } from "react-router-dom";
+import { useGetUserId } from "../hooks/useGetUserID";
+
 
 import "./register.css";
 
@@ -22,10 +24,13 @@ export const Login = () => {
       });
 
       setCookies("access_token", response.data.token);
-      window.localStorage.setItem("userID", response.data.userID);
+
+      window.localStorage.setItem("userID", response.data.userId);
       //window.location.href = 'http://localhost:3000/';
       
+      console.log(window.localStorage.getItem("userID"));
       console.log(response.data.token);
+
       navigate("/");
     } catch (err) {
       console.error(err);
@@ -56,6 +61,8 @@ const Form = ({ username, setUsername, password, setPassword,onSubmit }) => {
             <input
               type="text"
               //id="username"
+              className="form-content"
+
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               required
@@ -67,6 +74,7 @@ const Form = ({ username, setUsername, password, setPassword,onSubmit }) => {
             <input
               type="password"
               id="password"
+              className="form-content"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required

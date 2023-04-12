@@ -5,7 +5,7 @@ import { UserModel } from "../models/Users.js";
 
 const router = express.Router();
 
-router.post("/register", async(req, res)=>{ //username api
+router.post("/register", async(req, res)=>{ //register api
     const {username ,password,email,phoneNumber} =req.body;
     const user = await UserModel.findOne({username: username});
 
@@ -42,3 +42,19 @@ router.post("/login", async(req,res)=>{ //login api
 });
 
 export {router as userRouter};
+
+// middleware for tokens
+export const verifyToken = (req,res,next) =>{
+    const token = req.headers.authorizations;
+
+    if(token )
+    {
+        jwt.verify(token,"secret",(err) =>{
+            if(err) return res.sendStatus(403);
+            next();
+        });
+    }
+    else{
+        res.sendStatus(401);
+    }
+}

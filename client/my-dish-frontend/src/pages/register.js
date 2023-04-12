@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios, { all } from "axios"; //used for using the backend api for registration
 import "./register.css";
+
 export const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -62,7 +63,7 @@ const Form = ({
             <input
               type="text"
               id="username"
-              // className="form-content"
+              className="form-content"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               placeholder="Username"
@@ -73,7 +74,7 @@ const Form = ({
             <input
               type="password"
               id="password"
-              // className="form-content"
+              className="form-content"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
@@ -85,7 +86,7 @@ const Form = ({
             <input
               type="password"
               id="secondpassword"
-              // className="form-content"
+              className="form-content"
               value={secondpassword}
               onChange={(event) => setSecondPassword(event.target.value)}
               required
@@ -97,7 +98,7 @@ const Form = ({
             <input
               type="email"
               id="email"
-              // className="form-content"
+              className="form-content"
               value={email}
               placeholder="Email"
               onChange={(event) => setEmail(event.target.value)}
@@ -108,7 +109,7 @@ const Form = ({
             <input
               type="text"
               id="phoneNumber"
-              // className="form-content"
+              className="form-content"
               value={phoneNumber}
               placeholder="Phone Number"
               onChange={(event) => setPhoneNumber(event.target.value)}
