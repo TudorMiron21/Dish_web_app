@@ -1,87 +1,70 @@
-import { useEffect, useState } from "react";
 import { useGetUserId } from "../hooks/useGetUserID";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import Carousel from "../components/carousel.js";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 export const Home = () => {
+  const userID = useGetUserId();
+  const navigate = useNavigate();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const slides = [
     {
-      url: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=60",
-      title: "Photo 1",
+      url: "https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+      title: "Make Food Better",
     },
     {
-      url: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=60",
-      title: "Photo 1",
+      url: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+      title: "Taste The New Flavours",
     },
     {
-      url: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8M3x8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=60",
-      title: "Photo 1",
+      url: "https://images.unsplash.com/photo-1496412705862-e0088f16f791?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80",
+      title: "Make It Your Own",
     },
     {
       url: "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NXx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=60",
-      title: "Photo 1",
+      title: "Easy To Make",
     },
     {
-      url: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8N3x8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=60",
-      title: "Photo 1",
+      url: "https://images.unsplash.com/photo-1515088167831-556650cef41d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80",
+      title: "Cook, cook, cook!",
     },
   ];
   const containerStyles = {
-
     width: "100%",
-    height:"500px",
+    height: "500px",
     margin: "0 auto",
   };
-  const [recipes, setRecipes] = useState([]); // data structure that contains all the recepies
-  const [savedRecipes, setSavedRecipes] = useState([]);
-  const [cookies, _] = useCookies(["access_token"]);
 
-  const userID = useGetUserId();
-  //useEffect is called whenever the page is rendered
-  useEffect(() => {
-    // a way to put all the data from the data base to that data structure
-    const fetchRecipe = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/recipes");
-        setRecipes(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
+  const categories = [
+    {
+      url: "https://images.unsplash.com/photo-1598030304671-5aa1d6f21128?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTh8fHZlZ2V0YWJsZXN8ZW58MHx8MHx8&auto=format&fit=crop&w=1000&q=60",
+      text: "healthy",
+    },
+    {
+      url: "https://images.unsplash.com/photo-1613564834361-9436948817d1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTJ8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=60",
+      text: "pizza",
+    },
+    {
+      url: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YnVyZ2VyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1000&q=60",
+      text: "burgers",
+    },
+    {
+      url: "https://images.unsplash.com/photo-1584583570840-0a3d88497593?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fHN1c2hpfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1000&q=60",
+      text: "sushi",
+    },
+    {
+      url:"https://images.unsplash.com/photo-1586195831572-9608b4f48230?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGNob2NvbGF0ZSUyMGRlc3NlcnRzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1000&q=60",
+      text: "desserts",
+    },
+  ];
 
-    const fetchSavedRecipe = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3001/recipes/savedRecipes/ids/${userID}`
-        );
-        setSavedRecipes(response.data.savedRecipes);
-        // console.log(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchRecipe();
-    //if (cookies.access_token)
-    fetchSavedRecipe();
-  }, []);
-
-  const saveRecipe = async (recipeID) => {
-    try {
-      console.log("userid:" + userID);
-      console.log("recipeId:" + recipeID);
-
-      const response = await axios.put("http://localhost:3001/recipes", {
-        recipeID,
-        userID,
-      });
-      setSavedRecipes(response.data.savedRecipes);
-    } catch (err) {
-      console.log(err);
-    }
+  const goToMain = () => {
+    navigate("/main-listing");
   };
-
-  const isRecipeSaved = (id) => savedRecipes.includes(id);
+  const [cookies, _] = useCookies(["access_token"]);
 
   if (userID) {
     return (
@@ -89,32 +72,20 @@ export const Home = () => {
         <div style={containerStyles}>
           <Carousel slides={slides} />
         </div>
-        <div className="grid">
-          {/* <h1> Recipes</h1> */}
-          <ul>
-            {recipes.map((recipe) => (
-              <div className="home-item">
-                <li key={recipe._id} className="col">
-                  <div>
-                    <h2>{recipe.name}</h2>
-                    {/* {isRecipeSaved(recipe._id) ? "Saved" :"Save"} */}
 
-                    <button
-                      onClick={() => saveRecipe(recipe._id)}
-                      disabled={isRecipeSaved(recipe._id)}
-                    >
-                      {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
-                    </button>
-                  </div>
-
-                  <div className="instructions">{recipe.instructions}</div>
-                  <img src={recipe.imageURL} alt={recipe.name} />
-                  <p>Cooking Time:{recipe.cookingTime} (minutes)</p>
-                </li>
-              </div>
-            ))}
-          </ul>
-        </div>
+        <ul className="ul-btn">
+          {categories.map((category) => (
+            <li className="li-button">
+              <button
+                onClick={goToMain}
+                className="category-btn"
+                style={{backgroundImage:`url(${category.url})`, backgroundSize:"cover", backgroundPosition:"center"}}
+              >
+                {category.text}
+              </button>
+            </li>
+          ))}
+        </ul>
       </div>
     );
   } else {

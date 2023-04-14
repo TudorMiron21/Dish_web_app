@@ -15,7 +15,7 @@ body {
   font-size: 20px;
   color: #fd7f20;
   text-decoration: none;
-  padding-right: 10%;
+  padding-right: 2%; 
 
   color: #0000;
   background: linear-gradient(90deg, #fd7f20 50%, #000 0) var(--_p, 100%) / 200%
@@ -27,14 +27,13 @@ body {
 
 .navlink:hover {
   color: #ffffff;
-
   --_p: 0%;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
-   align-items: center;
+  align-items: center;
   background-color: #3b3b3b;
   border-radius: 15px;
   flex-wrap: wrap; 
@@ -44,9 +43,11 @@ body {
   cursor: pointer;
   width: 50px;
   height: 50px;
+
 }
 
 .navbar Link.navlink {
+
   transition: all 0.3s ease 0s;
 }
 
@@ -63,28 +64,8 @@ header .nav-button {
 }
 
 @media only screen and(max-width: 1024px) {
-  header .nav-button {
-    visibility: visible;
-    opacity: 1;
-  }
 
-  header nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    transition: 1s;
-    transform: translateY(-100vh);
-  }
 
-  header responsive_nav{
-    transform: none;
-  }
 }
 
 /* Register page */
@@ -122,18 +103,18 @@ ul {
   align-items: center;
 }
 
-li {
+.col {
   display: inline-block;
   border: 1px solid black;
   border-radius: 1em;
   padding: 10px;
   margin: 10px;
-  margin-top: 15%;
+   margin-top: 7%; 
   flex-basis: calc(33.33% - 20px); /* three items per row */
 }
 
 @media only screen and (max-width: 768px) {
-  li {
+  .col {
     display: block;
     margin: 10px 0;
     margin-top: 15%;
@@ -300,3 +281,25 @@ hr {
 }
 
 /* FOOTER */
+
+
+.li-button{
+  display: inline-block;
+  padding: 10px;
+  margin: 10px;
+  margin-top: 7%; 
+  
+}
+
+.category-btn{
+
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 2rem;
+  font-size: xx-large;
+}
+
+.ul-btn{
+  margin: 100px;
+}

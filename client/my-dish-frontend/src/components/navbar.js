@@ -42,6 +42,13 @@ export const NavBar = () => {
             <Link className="navlink" to="/saved-recipes">
               Saved Recipes
             </Link>
+            <Link className="navlink" to="/delete-recipes">
+              Delete Recipes
+            </Link>
+
+            <Link className="navlink" to="/change-credentials">
+              Change Credentials
+            </Link>
             <button onClick={logout} className="logout-button">
               Logout
             </button>

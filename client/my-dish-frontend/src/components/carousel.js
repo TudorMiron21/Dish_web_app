@@ -6,7 +6,6 @@ export const Carousel = ({ slides }) => {
   const HoleCarouselStyle = {
     height: "100%",
     position: "relative",
-    
   };
   const carouselStyle = {
     width: "100%",
@@ -15,7 +14,7 @@ export const Carousel = ({ slides }) => {
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundImage: `url(${slides[currentIndex].url})`,
-    transition:"0.5s"
+    transition: "0.5s",
   };
 
   const leftArrowStyles = {
@@ -40,17 +39,23 @@ export const Carousel = ({ slides }) => {
     cursor: "pointer",
   };
 
-  const dotsContainerStyles ={
-    display:'flex',
-    justifyContent:'center'
-  }
+  const dotsContainerStyles = {
+    display: "flex",
+    justifyContent: "center",
 
-  const dotStyles ={
-    margin:'10px',
-    cursor: 'pointer',
-    fontSize:'20px',
-    marginBottom:'10px'
-  }
+  };
+
+  const dotStyles = {
+    margin: "10px",
+    cursor: "pointer",
+    fontSize: "20px",
+    marginBottom: "10px",
+  };
+
+  const carouselTextStyle ={
+    fontSize:"45px",
+    marginLeft:"15px",
+    }
 
   const goToPrev = () => {
     const isFirstSlide = currentIndex === 0;
@@ -63,6 +68,10 @@ export const Carousel = ({ slides }) => {
     const newIndex = isLastSlide ? 0 : currentIndex + 1;
     setCurrentIndex(newIndex);
   };
+
+  const goToSlide = (slideIndex) => {
+    setCurrentIndex(slideIndex);
+  };
   return (
     <div style={HoleCarouselStyle}>
       <div style={leftArrowStyles} onClick={goToPrev}>
@@ -74,19 +83,21 @@ export const Carousel = ({ slides }) => {
         ⇨{" "}
       </div>
 
-      <div style={carouselStyle}></div>
-
-      <div style={dotsContainerStyles}>
-        {
-            slides.map((slide,slideIndex) =>(
-                <div key ={slideIndex} style={dotStyles}>
-                    🔘
-                </div>
-            ))
-            
-        }
+      <div style={carouselStyle}>
+        <p style ={carouselTextStyle}>{slides[currentIndex].title}</p>
       </div>
 
+      <div style={dotsContainerStyles}>
+        {slides.map((slide, slideIndex) => (
+          <div
+            key={slideIndex}
+            style={dotStyles}
+            onClick={() => goToSlide(slideIndex)}
+          >
+            🔘
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

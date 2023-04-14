@@ -3,7 +3,7 @@ import cors from 'cors';// used for communication between the sever and the clie
 import mongoose from 'mongoose';// db management system 
 import {userRouter} from './routes/users.js';
 import {recipesRouter} from './routes/recipes.js';
-
+// require('dotenv').config();
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use("/recipes",recipesRouter);//connect endpoint with model cretaed in the r
 
 mongoose.connect("mongodb+srv://Tudor:Parola21@recipes.ezuvusw.mongodb.net/recipes?retryWrites=true&w=majority");
 
-app.listen(3001,()=>console.log("server started!"));
+app.listen(process.env.PORT ||3001,()=>console.log("server started!"));
 
 
 

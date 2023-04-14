@@ -41,6 +41,16 @@ router.post("/login", async(req,res)=>{ //login api
     res.json({token, userId:user._id});
 });
 
+router.get("/register/:userID", async(req,res) => {
+
+    try{
+        const user = await UserModel.findById(req.params.userID);
+        res.json(user);
+    }catch(err){
+        res.json(err);
+    }
+});
+
 export {router as userRouter};
 
 // middleware for tokens

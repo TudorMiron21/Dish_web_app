@@ -2,26 +2,15 @@ import { useState } from "react";
 import axios, { all } from "axios"; //used for using the backend api for registration
 import "./register.css";
 
-export const Register = () => {
+export const ChangeCredentials = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [secondpassword, setSecondPassword] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   //submit all the data to de data base
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      await axios.post("http://localhost:3001/auth/register", {
-        username,
-        password,
-        email,
-        phoneNumber
-      });
-      alert("Registartion Completed! Now login.");
-    } catch (err) {
-      console.error(err);
-    }
+  const onSubmit = async (event,buttonText) => {
+
   };
 
   //
@@ -59,7 +48,7 @@ const Form = ({
     <div className="page">
       <div className="cover">
         <form onSubmit={onSubmit}>
-          <h2 className="register-text">Regsier</h2>
+          <h2 className="register-text">New Credentials</h2>
           <div className="form-group">
             <input
               type="text"
@@ -68,7 +57,6 @@ const Form = ({
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               placeholder="Username"
-              required
             ></input>
           </div>
           <div className="form-group">
@@ -79,7 +67,6 @@ const Form = ({
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
-              required
             ></input>
           </div>
 
@@ -90,7 +77,6 @@ const Form = ({
               className="form-content"
               value={secondpassword}
               onChange={(event) => setSecondPassword(event.target.value)}
-              required
               placeholder="Second password"
             ></input>
           </div>
@@ -118,15 +104,9 @@ const Form = ({
           </div>
           <button type="submit" className="reg-button">
             {" "}
-            Register
+            Change
           </button>
         </form>
-        <p className="text">Or login using:</p>
-
-        <div className="alt-login">
-          <div className="facebook"></div>
-          <div className="google"></div>
-        </div>
       </div>
     </div>
   );
