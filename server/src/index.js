@@ -5,6 +5,9 @@ import {userRouter} from './routes/users.js';
 import {recipesRouter} from './routes/recipes.js';
 // require('dotenv').config();
 
+//import dotnet from 'dotenv';
+//dotnet.config();
+
 const app = express();
 
 app.use(express.json());//data form fornt end in a .json format

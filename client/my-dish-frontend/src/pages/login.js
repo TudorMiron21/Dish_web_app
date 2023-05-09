@@ -23,17 +23,25 @@ export const Login = () => {
         password,
       });
 
+      if(response.status === 404)
+      {
+        throw(response.data.message);
+      }
+
       setCookies("access_token", response.data.token);
 
       window.localStorage.setItem("userID", response.data.userId);
+      window.localStorage.setItem("userName", response.data.userName);
+
       //window.location.href = 'http://localhost:3000/';
       
       console.log(window.localStorage.getItem("userID"));
-      console.log(response.data.token);
+      console.log(window.localStorage.getItem("userName"));
 
       navigate("/");
     } catch (err) {
       console.error(err);
+      alert(err);
     }
   };
   return (

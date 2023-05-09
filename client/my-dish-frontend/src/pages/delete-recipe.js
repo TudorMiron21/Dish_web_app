@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
-import { useGetUserId } from "../hooks/useGetUserID";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import Carousel from "../components/carousel.js";
 export const DeleteRecipe = () => {
   const [recipes, setRecipes] = useState([]); // data structure that contains all the recepies
-  const [savedRecipes, setSavedRecipes] = useState([]);
   const [cookies, _] = useCookies(["access_token"]);
 
-  const userID = useGetUserId();
   //useEffect is called whenever the page is rendered
   useEffect(() => {
     // a way to put all the data from the data base to that data structure
@@ -25,22 +21,39 @@ export const DeleteRecipe = () => {
     //if (cookies.access_token)
   }, []);
 
-  const saveRecipe = async (recipeID) => {
-    try {
-      console.log("userid:" + userID);
-      console.log("recipeId:" + recipeID);
+  // const saveRecipe = async (recipeID) => {
+  //   try {
+  //     console.log("userid:" + userID);
+  //     console.log("recipeId:" + recipeID);
 
-      const response = await axios.put("http://localhost:3001/recipes", {
-        recipeID,
-        userID,
+  //     const response = await axios.delete("http://localhost:3001/recipes", {
+  //       recipeID,
+  //       userID,
+  //     });
+  //     setSavedRecipes(response.data.savedRecipes);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const deleteRecipe = async (recipeID) => {
+    try {
+      console.log(recipeID);
+      const response = await axios.delete("http://localhost:3001/recipes", {
+        data: { recipeID } // Pass recipeID as request data
       });
-      setSavedRecipes(response.data.savedRecipes);
+  
+      if (response.status === 404) {
+        // Handle 404 status
+        console.log("Recipe not found");
+      } else {
+        // Recipe deleted successfully or other status
+        console.log("Recipe deleted");
+      }
     } catch (err) {
       console.log(err);
     }
   };
-
-  const isRecipeSaved = (id) => savedRecipes.includes(id);
 
   return (
     <div>
@@ -55,10 +68,11 @@ export const DeleteRecipe = () => {
                   {/* {isRecipeSaved(recipe._id) ? "Saved" :"Save"} */}
 
                   <button
-                    onClick={() => saveRecipe(recipe._id)}
-                    disabled={isRecipeSaved(recipe._id)}
+                    onClick={() => deleteRecipe(recipe._id)}
+                    // disabled={isRecipeSaved(recipe._id)}
                   >
-                    {isRecipeSaved(recipe._id) ? "Deleted" : "Delete"}
+                    {/* {isRecipeSaved(recipe._id) ? "Deleted" : "Delete"} */}
+                    Delete
                   </button>
                 </div>
 

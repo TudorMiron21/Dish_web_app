@@ -1,19 +1,61 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios, { all } from "axios"; //used for using the backend api for registration
 import "./register.css";
-
+import { useGetUserId } from "../hooks/useGetUserID";
 export const ChangeCredentials = () => {
+  const userID = useGetUserId();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [secondpassword, setSecondPassword] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  //submit all the data to de data base
-  const onSubmit = async (event,buttonText) => {
 
+  const [recv_username, setRecvUsername] = useState("");
+  const [recv_email, setRecvEmail] = useState("");
+  const [recv_phoneNumber, setRecvPhoneNumber] = useState("");
+
+  //submit all the data to de data base
+  const onSubmit = async (event, buttonText) => {
+    event.preventDefault();
+    try {
+      const response = await axios.put(
+        "http://localhost:3001/auth/changeCredentials",
+        {
+          userID,
+          username,
+          password,
+          email,
+          phoneNumber,
+        }
+      );
+
+      alert(response.data);
+
+    } catch (err) {
+      console.log(err);
+    }
   };
 
-  //
+  const getCredentials = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/auth/register/${userID}`
+      );
+      console.log(response.data);
+      setRecvUsername(response.data.user.username);
+      setRecvEmail(response.data.user.email);
+      setRecvPhoneNumber(response.data.user.phoneNumber);
+      console.log(userID);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCredentials();
+  }, []);
+
   return (
     <Form
       username={username}
@@ -27,10 +69,12 @@ export const ChangeCredentials = () => {
       phoneNumber={phoneNumber}
       setPhoneNumber={setPhoneNumber}
       onSubmit={onSubmit}
+      recv_username={recv_username}
+      recv_email={recv_email}
+      recv_phoneNumber={recv_phoneNumber}
     />
   );
 };
-
 const Form = ({
   username,
   setUsername,
@@ -43,6 +87,9 @@ const Form = ({
   phoneNumber,
   setPhoneNumber,
   onSubmit,
+  recv_username,
+  recv_email,
+  recv_phoneNumber,
 }) => {
   return (
     <div className="page">
@@ -54,20 +101,20 @@ const Form = ({
               type="text"
               id="username"
               className="form-content"
-              value={username}
+              value={username} // Use the username prop here
               onChange={(event) => setUsername(event.target.value)}
-              placeholder="Username"
-            ></input>
+              placeholder={recv_username}
+            />
           </div>
           <div className="form-group">
             <input
               type="password"
               id="password"
               className="form-content"
-              value={password}
+              value={password} // Use the password prop here
               onChange={(event) => setPassword(event.target.value)}
               placeholder="Password"
-            ></input>
+            />
           </div>
 
           <div className="form-group">
@@ -75,10 +122,10 @@ const Form = ({
               type="password"
               id="secondpassword"
               className="form-content"
-              value={secondpassword}
+              value={secondpassword} // Use the secondpassword prop here
               onChange={(event) => setSecondPassword(event.target.value)}
               placeholder="Second password"
-            ></input>
+            />
           </div>
 
           <div className="form-group">
@@ -86,10 +133,10 @@ const Form = ({
               type="email"
               id="email"
               className="form-content"
-              value={email}
-              placeholder="Email"
+              value={email} // Use the email prop here
+              placeholder={recv_email}
               onChange={(event) => setEmail(event.target.value)}
-            ></input>
+            />
           </div>
 
           <div className="form-group">
@@ -97,13 +144,12 @@ const Form = ({
               type="text"
               id="phoneNumber"
               className="form-content"
-              value={phoneNumber}
-              placeholder="Phone Number"
+              value={phoneNumber} // Use the phoneNumber prop here
+              placeholder={recv_phoneNumber}
               onChange={(event) => setPhoneNumber(event.target.value)}
-            ></input>
+            />
           </div>
           <button type="submit" className="reg-button">
-            {" "}
             Change
           </button>
         </form>

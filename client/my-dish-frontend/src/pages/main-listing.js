@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import { useGetUserId } from "../hooks/useGetUserID";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import Carousel from "../components/carousel.js";
+import { useLocation } from "react-router-dom";
+
 export const MainListing = () => {
+
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const categoryArg = queryParams.get("argValue");
   const [recipes, setRecipes] = useState([]); // data structure that contains all the recepies
   const [savedRecipes, setSavedRecipes] = useState([]);
   const [cookies, _] = useCookies(["access_token"]);
@@ -14,7 +19,9 @@ export const MainListing = () => {
     // a way to put all the data from the data base to that data structure
     const fetchRecipe = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/recipes");
+        const response = await axios.get(
+          `http://localhost:3001/recipes/${categoryArg}`
+        );
         setRecipes(response.data);
       } catch (err) {
         console.log(err);
@@ -55,32 +62,32 @@ export const MainListing = () => {
 
   const isRecipeSaved = (id) => savedRecipes.includes(id);
 
-    return (
-      <div className="grid">
-        {/* <h1> Recipes</h1> */}
-        <ul>
-          {recipes.map((recipe) => (
-            <div className="home-item">
-              <li key={recipe._id} className="col">
-                <div>
-                  <h2>{recipe.name}</h2>
-                  {/* {isRecipeSaved(recipe._id) ? "Saved" :"Save"} */}
+  return (
+    <div className="grid">
+      {/* <h1> Recipes</h1> */}
+      <ul>
+        {recipes.map((recipe) => (
+          <div className="home-item">
+            <li key={recipe._id} className="col">
+              <div>
+                <h2>{recipe.name}</h2>
+                {/* {isRecipeSaved(recipe._id) ? "Saved" :"Save"} */}
 
-                  <button
-                    onClick={() => saveRecipe(recipe._id)}
-                    disabled={isRecipeSaved(recipe._id)}
-                  >
-                    {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
-                  </button>
-                </div>
+                <button
+                  onClick={() => saveRecipe(recipe._id)}
+                  disabled={isRecipeSaved(recipe._id)}
+                >
+                  {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
+                </button>
+              </div>
 
-                <div className="instructions">{recipe.instructions}</div>
-                <img src={recipe.imageURL} alt={recipe.name} />
-                <p>Cooking Time:{recipe.cookingTime} (minutes)</p>
-              </li>
-            </div>
-          ))}
-        </ul>
-      </div>
-    );
+              <div className="instructions">{recipe.instructions}</div>
+              <img src={recipe.imageURL} alt={recipe.name} />
+              <p>Cooking Time:{recipe.cookingTime} (minutes)</p>
+            </li>
+          </div>
+        ))}
+      </ul>
+    </div>
+  );
 };

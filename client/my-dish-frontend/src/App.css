@@ -1,24 +1,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Anuphan:wght@300&family=Pacifico&display=swap");
 .App {
-  background-color: #181310;
+  background-color:#263A29;
+  
 }
 
 body {
-  color: #fd7f20;
-  font-family: "Pacifico", cursive;
+  color: #F2E3DB;
+  /* font-family: "Pacifico", cursive; */
   /* background-color: #24252a; */
 }
 
 .navlink {
   font-weight: 500;
   font-size: 20px;
-  color: #fd7f20;
+  color: #E86A33;
   text-decoration: none;
   padding-right: 2%; 
-
-  color: #0000;
-  background: linear-gradient(90deg, #fd7f20 50%, #000 0) var(--_p, 100%) / 200%
+  font-family: "Pacifico", cursive;
+  color: #263A29;
+  background: linear-gradient(90deg, #E86A33 50%, #263A29 0) var(--_p, 100%) / 200%
     no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
@@ -34,7 +35,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #3b3b3b;
+  background-color: #41644A;
   border-radius: 15px;
   flex-wrap: wrap; 
 }
@@ -71,11 +72,12 @@ header .nav-button {
 /* Register page */
 
 .create-recipe {
+
   margin-top: 7%;
   margin-bottom: 7%; /*problem*/
   width: 30%;
 
-  background-color: rgb(140, 63, 8);
+  background-color: #41644A;
   position: relative;
   border-radius: 1em;
   box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.2);
@@ -86,12 +88,18 @@ header .nav-button {
 
   margin-left: auto;
   margin-right: auto;
+
 }
 .create-recipe form {
   display: flex;
   flex-direction: column;
+  margin-bottom: 10%;
+  margin-top: 10%;
 }
 
+.create-recipe h2{
+margin-top: 10px;
+}
 ul {
   display: flex;
   flex-direction: row;
@@ -121,7 +129,9 @@ ul {
   }
 }
 
-h2 {
+.home-item h2 {
+  font-family: "Pacifico", cursive;
+  font-weight: normal;
   margin-top: 0;
 }
 img {
@@ -136,7 +146,7 @@ img {
   width: 400px;
 }
 
-p {
+.home-item p {
   max-width: 400px;
   font-size: 12px;
 }
@@ -175,7 +185,7 @@ p {
 /* FOOTER */
 
 .footer {
-  background-color: #000;
+  background-color: #41644A;
   border-radius: 1em;  
 }
 
@@ -205,7 +215,7 @@ p {
 }
 
 a {
-  color: rgb(140, 63, 8);
+  color: rgb(249, 135, 54);
   text-decoration: none;
 }
 
@@ -252,19 +262,19 @@ a {
   font-size: 13px;
   line-height: 15px;
   margin-left: 2rem;
-  color: white;
+  color: rgb(249, 135, 54);
   font-weight: 600;
 }
 
 hr {
-  color: white !important;
+  color: rgb(249, 135, 54) !important;
   width: 100%;
 }
 
 .sb_footer-copyright p {
   font-size: 13px;
   line-height: 15px;
-  color: white;
+  color: rgb(249, 135, 54);;
   font-weight: 600;
 }
 
@@ -302,4 +312,63 @@ hr {
 
 .ul-btn{
   margin: 100px;
+}
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown h4{
+  font-weight: normal;
+}
+
+/* Dropdown button */
+.dropbtn {
+  margin-left:11px;
+  background-color:#F2E3DB;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  color: black;
+}
+
+/* Dropdown content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  
+}
+
+/* Dropdown options */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+/* Dropdown options on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown content when dropdown button is clicked */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+/* Style for the selected option */
+.dropdown-content a.selected {
+  background-color: #3b3b3b;
+  color: white;
 }

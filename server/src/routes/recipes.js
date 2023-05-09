@@ -6,6 +6,17 @@ import { verifyToken } from "./users.js";
 
 const router = express.Router();
 
+router.get("/:categoryArg", async (req, res) => {
+  // this is the route that responses to each time we go to the home page. The Home page should display all the recipes
+  try {
+    const categoryArg = req.params.categoryArg;
+    const response = await RecipeModel.find({category: categoryArg}); //this does not have any filter so it should return all the recipes
+    res.json(response);
+  } catch (err) {
+    res.json(err);
+  }
+});
+
 router.get("/", async (req, res) => {
   // this is the route that responses to each time we go to the home page. The Home page should display all the recipes
   try {
@@ -41,6 +52,29 @@ router.put("/", async (req, res) => {
     res.json({ savedRecipes: user.savedRecipes });
   } catch (err) {
     res.json(err);
+  }
+});
+
+router.delete("/", async (req, res) => {
+  try {
+    const recipe = await RecipeModel.findById(req.body.recipeID);
+
+    if (!recipe) {
+      console.log("Recipe not found");
+      return res.status(404).json({ message: "Recipe not found!" });
+    }
+
+    await recipe.deleteOne();
+
+    await UserModel.updateMany(
+      { savedRecipes: req.body.recipeID },
+      { $pull: { savedRecipes: req.body.recipeID } }
+    );
+
+    res.json({ message: "Recipe deleted successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Server error" });
   }
 });
 

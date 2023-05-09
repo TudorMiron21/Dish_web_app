@@ -13,15 +13,19 @@ export const CreateRecipe = () => {
     imageURL: "",
     cookingTime: 0,
     userOwner: userID,
+    category: "",
   });
-  const [ cookies, _] = useCookies(["access_token"]);
-
-
+  const [cookies, _] = useCookies(["access_token"]);
 
   const navigate = useNavigate();
 
   const handleChange = (event) => {
     // this handles changes in all the fields
+    const { name, value } = event.target;
+    setRecipe({ ...recipe, [name]: value });
+  };
+
+  const handleChangeCategory = (event) => {
     const { name, value } = event.target;
     setRecipe({ ...recipe, [name]: value });
   };
@@ -43,6 +47,7 @@ export const CreateRecipe = () => {
     try {
       await axios.post("http://localhost:3001/recipes", recipe);
       alert("Recipe Created!");
+      console.log(recipe);
       navigate("/");
     } catch (err) {
       console.log(err);
@@ -60,6 +65,20 @@ export const CreateRecipe = () => {
           name="name"
           onChange={handleChange}
         ></input>
+
+        <div className="dropdown">
+          <h4>Category:</h4>
+          <select name = "category" onChange={handleChangeCategory} className="dropbtn">
+            <option value="">Select an option</option>
+            <option value="Pizza">Pizza</option>
+            <option value="Burger">Burger</option>
+            <option value="Sushi">Sushi</option>
+            <option value="Healthy">Healthy</option>
+            <option value="Desserts">Desserts</option>
+            <option value="BreakFast">BreakFast</option>
+            
+          </select>
+        </div>
 
         <label htmlFor="ingredients">Ingredients:</label>
         {recipe.ingredients.map((ingredient, index) => (
@@ -108,7 +127,9 @@ export const CreateRecipe = () => {
           onChange={handleChange}
         ></input>
 
-        <button type="submit" className="reg-button"/*onClick={}*/>Submit</button>
+        <button type="submit" className="reg-button" /*onClick={}*/>
+          Submit
+        </button>
       </form>
     </div>
   );

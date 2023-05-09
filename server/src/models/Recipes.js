@@ -6,6 +6,13 @@ const RecipeSchema = new mongoose.Schema({
   instructions: { type: String, required: true },
   imageURL: { type: String, required: true },
   cookingTime: { type: Number, required: true },
+  category: { type: String, required: true },
+
+  //
+  numberOfLikes:{type:Number,required:false},
+  comments:[{type:String,required:false}],
+  //
+
   userOwner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",
