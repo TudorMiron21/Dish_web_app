@@ -1,4 +1,5 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router, RouteProps, Route, Routes} from 'react-router-dom'
 import { Home } from './pages/home';
 import { CreateRecipe } from './pages/create-recipe';
@@ -10,6 +11,8 @@ import Footer from './components/footer';
 import { DeleteRecipe } from './pages/delete-recipe';
 import { ChangeCredentials } from './pages/change-credentials';
 import { MainListing } from './pages/main-listing';
+import { SeeMore } from './pages/see-more';
+import { AdminControl } from './pages/admin-control';
 function App() {
   return (
     <div className="App">
@@ -24,6 +27,9 @@ function App() {
           <Route path="/delete-recipes" element ={<DeleteRecipe/>}></Route>
           <Route path="/change-credentials" element ={<ChangeCredentials/>}></Route>
           <Route path="/main-listing" element ={<MainListing/>}></Route>
+          <Route path="/see-more" element ={<SeeMore/>}></Route>
+          <Route path="/admin-control" element ={<AdminControl/>}></Route>
+
         </Routes>
         <Footer/>
       </Router>

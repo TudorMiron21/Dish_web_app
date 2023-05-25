@@ -14,6 +14,7 @@ export const Carousel = ({ slides }) => {
     backgroundPosition: "center",
     backgroundSize: "cover",
     backgroundImage: `url(${slides[currentIndex].url})`,
+    fontFamily:"\"Pacifico\", cursive",
     transition: "0.5s",
   };
 

@@ -7,15 +7,97 @@ import { verifyToken } from "./users.js";
 const router = express.Router();
 
 router.get("/:categoryArg", async (req, res) => {
-  // this is the route that responses to each time we go to the home page. The Home page should display all the recipes
   try {
     const categoryArg = req.params.categoryArg;
-    const response = await RecipeModel.find({category: categoryArg}); //this does not have any filter so it should return all the recipes
-    res.json(response);
+    const response = await RecipeModel.find({ category: categoryArg }); 
+    let secondResponse;
+
+    if (!response || response.length === 0) {
+      secondResponse = await RecipeModel.find({ name: { $regex: categoryArg, $options: "i" } });
+    }
+
+    if (response && response.length > 0) {
+      res.json(response);
+    } else if (secondResponse && secondResponse.length > 0) {
+      res.json(secondResponse);
+    } else {
+      res.json([]);
+    }
   } catch (err) {
     res.json(err);
   }
 });
+
+
+router.get("/see-more/:recipeId",async(req,res)=>{
+
+  // console.log("pula mea");
+  try{
+    const recipeId = req.params.recipeId;
+    console.log("recipe"+req.params.recipeId);
+    const response = await RecipeModel.findById(recipeId);
+    console.log(response);
+    res.json(response);
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+
+});
+
+router.put("/comments",async(req,res)=>{
+
+  try{
+
+    // console.log(req.body);
+    const recipeId = req.body.argValue;
+    const comment = req.body.comment;
+    const userId = req.body.userID;
+    const recipe = await RecipeModel.findById(recipeId);
+    if (!recipe) {
+      return res.status(404).json({ error: "Recipe not found" });
+    }
+
+    const newComment = {
+      comment: comment,
+      user: userId,
+    };
+
+    console.log(newComment);
+    const user = await UserModel.findById(userId);
+
+    const atachUserIdComment = user.username +":"+ newComment.comment;
+
+    recipe.comments.push(newComment);
+
+    const updatedRecipe = await recipe.save();
+
+    res.status(200).json(atachUserIdComment);
+  }
+  catch(err)
+  {
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+
+});
+
+router.get("/likes/:recipeId",async(req,res) =>{
+
+  try{
+    const recipeId = req.params.recipeId;
+    const response = await RecipeModel.findById(recipeId);
+    console.log("hello:"+response.numberOfSaves);
+    res.json({saves:response.numberOfSaves});
+  }
+  catch(err)
+  {
+    res.json(err);
+  }
+
+});
+
 
 router.get("/", async (req, res) => {
   // this is the route that responses to each time we go to the home page. The Home page should display all the recipes

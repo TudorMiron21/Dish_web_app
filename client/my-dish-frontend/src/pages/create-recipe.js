@@ -14,6 +14,7 @@ export const CreateRecipe = () => {
     cookingTime: 0,
     userOwner: userID,
     category: "",
+    numberOfSaves: 0
   });
   const [cookies, _] = useCookies(["access_token"]);
 
@@ -76,7 +77,7 @@ export const CreateRecipe = () => {
             <option value="Healthy">Healthy</option>
             <option value="Desserts">Desserts</option>
             <option value="BreakFast">BreakFast</option>
-            
+            <option value="Other">Other</option>
           </select>
         </div>
 

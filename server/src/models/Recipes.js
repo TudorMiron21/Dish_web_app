@@ -7,17 +7,22 @@ const RecipeSchema = new mongoose.Schema({
   imageURL: { type: String, required: true },
   cookingTime: { type: Number, required: true },
   category: { type: String, required: true },
-
-  //
-  numberOfLikes:{type:Number,required:false},
-  comments:[{type:String,required:false}],
-  //
-
+  numberOfSaves: { type: Number, required: false },
+  comments: [
+    {
+      comment: { type: String, required: false },
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+        required: true,
+      },
+    },
+  ],
   userOwner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "users",
     required: true,
-  }, //the user who created the recipe(mainly it would be the admin). It is charactarised by the userId
+  },
 });
 
 export const RecipeModel = mongoose.model("recipes", RecipeSchema);

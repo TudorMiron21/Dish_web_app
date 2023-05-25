@@ -68,6 +68,7 @@ export const DeleteRecipe = () => {
                   {/* {isRecipeSaved(recipe._id) ? "Saved" :"Save"} */}
 
                   <button
+                    className="style-button"
                     onClick={() => deleteRecipe(recipe._id)}
                     // disabled={isRecipeSaved(recipe._id)}
                   >

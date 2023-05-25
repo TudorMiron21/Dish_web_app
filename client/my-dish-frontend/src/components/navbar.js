@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { useGetUserName } from "../hooks/useGetUserName";
 import logo from "../images/logo.png";
+import React, { useState } from "react";
 
 export const NavBar = () => {
+  const [searchQuery, setSearchQuery] = useState("");
   const username = useGetUserName();
   const navRef = useRef();
   const [cookies, setCookies] = useCookies(["access_token"]);
@@ -15,12 +17,30 @@ export const NavBar = () => {
     window.localStorage.removeItem("userID");
     navigate("/login");
   };
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const searchEventHandle = ()=>{
+    navigate('/main-listing?argValue='+searchQuery)
+  }
   const isAdmin = username === "admin";
   return (
     <header className="navbar">
       <img className="logo" src={logo} alt="logo" />
 
       {/* <nav ref={navRef}> */}
+      <input
+        type="text"
+        placeholder="Search"
+        value={searchQuery}
+        onChange={handleSearchChange}
+        className="search-input" 
+      />
+
+      <button onClick={searchEventHandle} className="style-button">
+        Search
+      </button>
 
       <Link className="navlink" to="/">
         {" "}
@@ -38,7 +58,7 @@ export const NavBar = () => {
         </Link>
       ) : (
         <>
-          {isAdmin &&(
+          {isAdmin && (
             <>
               {
                 <Link className="navlink" to="/delete-recipes">
@@ -47,6 +67,10 @@ export const NavBar = () => {
               }
               <Link className="navlink" to="/create-recipe">
                 Create Recipe{" "}
+              </Link>
+
+              <Link className="navlink" to="/admin-control">
+                Admin Control{" "}
               </Link>
             </>
           )}
@@ -58,7 +82,7 @@ export const NavBar = () => {
           <Link className="navlink" to="/change-credentials">
             Change Credentials
           </Link>
-          <button onClick={logout} className="logout-button">
+          <button onClick={logout} className="style-button">
             Logout
           </button>
         </>

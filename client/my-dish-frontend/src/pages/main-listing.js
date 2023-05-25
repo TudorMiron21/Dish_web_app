@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { useGetUserId } from "../hooks/useGetUserID";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const MainListing = () => {
-
+  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const categoryArg = queryParams.get("argValue");
   const [recipes, setRecipes] = useState([]); // data structure that contains all the recepies
   const [savedRecipes, setSavedRecipes] = useState([]);
+  const [saves, setSaves] = useState(0);
   const [cookies, _] = useCookies(["access_token"]);
 
   const userID = useGetUserId();
@@ -40,15 +41,36 @@ export const MainListing = () => {
       }
     };
 
+    // const fetchSaveCounts = async () => {
+    //   const saveCountRequests = recipes.map((recipe) =>
+    //     getNoSaves(recipe._id)
+    //   );
+    //   await Promise.all(saveCountRequests);
+    // }
     fetchRecipe();
+    // fetchSaveCounts();
+
     //if (cookies.access_token)
     fetchSavedRecipe();
   }, []);
 
+  const getNoSaves = async (recipeId) => {
+    try {
+      console.log("id:" + recipeId);
+      const response = await axios.get(
+        `http://localhost:3001/recipes/likes/${recipeId}`
+      );
+      console.log(response.data.numberOfSaves);
+      return response.data.numberOfSaves;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const saveRecipe = async (recipeID) => {
     try {
-      console.log("userid:" + userID);
-      console.log("recipeId:" + recipeID);
+      // console.log("userid:" + userID);
+      // console.log("recipeId:" + recipeID);
 
       const response = await axios.put("http://localhost:3001/recipes", {
         recipeID,
@@ -60,34 +82,64 @@ export const MainListing = () => {
     }
   };
 
+  const seeMoreHandle = (recipeId) => {
+    navigate("/see-more/?argValue=" + recipeId);
+    console.log(recipeId);
+  };
+
   const isRecipeSaved = (id) => savedRecipes.includes(id);
+  const RecipeExist = () =>recipes.length > 0;
+    
+  if (RecipeExist()) {
+    console.log("len:" + RecipeExist);
+    return (
+      <div className="grid">
+        {/* <h1> Recipes</h1> */}
+        <ul className="listing-ul">
+          {recipes.map((recipe) => (
+            <div className="home-item" key={recipe._id}>
+              <li className="col">
+                <div>
+                  <h2>{recipe.name}</h2>
+                  {/* {isRecipeSaved(recipe._id) ? "Saved" :"Save"} */}
 
-  return (
-    <div className="grid">
-      {/* <h1> Recipes</h1> */}
-      <ul>
-        {recipes.map((recipe) => (
-          <div className="home-item">
-            <li key={recipe._id} className="col">
-              <div>
-                <h2>{recipe.name}</h2>
-                {/* {isRecipeSaved(recipe._id) ? "Saved" :"Save"} */}
+                  <button
+                    className="style-button"
+                    onClick={() => saveRecipe(recipe._id)}
+                    disabled={isRecipeSaved(recipe._id)}
+                  >
+                    {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
+                  </button>
 
+                  <p>{() => getNoSaves(recipe._id)} saves</p>
+                </div>
+
+                <div className="instructions">{recipe.instructions}</div>
+                <img src={recipe.imageURL} alt={recipe.name} />
+                <p>Cooking Time:{recipe.cookingTime} (minutes)</p>
                 <button
-                  onClick={() => saveRecipe(recipe._id)}
-                  disabled={isRecipeSaved(recipe._id)}
+                  className="style-button"
+                  onClick={() => seeMoreHandle(recipe._id)}
                 >
-                  {isRecipeSaved(recipe._id) ? "Saved" : "Save"}
+                  See More
                 </button>
-              </div>
-
-              <div className="instructions">{recipe.instructions}</div>
-              <img src={recipe.imageURL} alt={recipe.name} />
-              <p>Cooking Time:{recipe.cookingTime} (minutes)</p>
-            </li>
-          </div>
-        ))}
-      </ul>
-    </div>
-  );
+              </li>
+            </div>
+          ))}
+        </ul>
+      </div>
+    );
+  } else {
+    return (
+      <div className="cute-page">
+        <h1>Recipe Not Found</h1>
+        <p>Oops! It looks like the recipe you're looking for doesn't exist.</p>
+        <p>
+          But don't worry, there are plenty of other delicious recipes to
+          explore!
+        </p>
+        {/* Add more cute page content, styling, or additional components as needed */}
+      </div>
+    );
+  }
 };
